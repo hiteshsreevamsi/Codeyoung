@@ -1,11 +1,29 @@
+//Importing the Database operations class
 const Db = require('../database/DBoperations');
+
+//Importing the Translation Service class
 const Translate = require('../services/translateService');
+
+//Importing check and validationResult functions to validate the input
 const { check, validationResult } = require('express-validator');
 const express = require('express');
 const route = express.Router();
+
+//Creating new instance of translation service
 const translate = new Translate();
+
+//Creating new instance of Database operations
 const dbop = new Db();
 
+/*
+Post Endpoint to get the translated texts
+path - '/translate'
+params - {
+  source_language : String (Language code as per Google Translate api)
+  target_language : String (Language code as per Google Translate api) 
+  source_text : String 
+}
+*/
 route.post(
   '/',
   [

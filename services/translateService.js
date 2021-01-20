@@ -1,13 +1,21 @@
+// Importing the data from the config file
 const config = require('config');
+
+// Extracting the google translate api credentials
+const CREDENTIALS = { ...config };
+
+// Imports the Google Cloud client library
 const { TranslationServiceClient } = require('@google-cloud/translate');
 
-const CREDENTIALS = { ...config };
+// Creates a client
 const translationClient = new TranslationServiceClient({
   credentials: CREDENTIALS,
   projectId: CREDENTIALS.project_id,
 });
 
 module.exports = class TranslateService {
+
+  // Following function translates the given text to our required language
   translateText (text, source_language, target_language) {
     const location = 'global';
     // Construct request
@@ -27,6 +35,7 @@ module.exports = class TranslateService {
     }
   }
 
+  // Following method is for detecting the Language of Given text
   async detectLanguage (sourceLanguage_code, Translated) {
     const location = 'global';
     const request = {
